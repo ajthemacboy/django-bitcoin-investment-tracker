@@ -1,0 +1,85 @@
+{% load tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Investment List</title>
+</head>
+
+<style>
+    html * {
+        font-family: Arial, sans-serif;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table.primary td, th {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+
+<h1>Investment List</h1>
+<b><a href="/investments/add">Add</a></b>
+<br><br>
+
+<table cellpadding="5" class="primary">
+    <tr>
+        <th>Investment date</th>
+        <th>Investment time</th>
+        <th>Token price</th>
+        <th>Token amount</th>
+        <th>Original worth</th>
+        <th>Current worth</th>
+        <th>Worth change</th>
+    </tr>
+
+    {% for key, val in objects.items %}
+
+        <tr>
+            <td>{{ val.date }}</td>
+            <td>{{ val.time }}</td>
+            <td>{{ val.price }}</td>
+            <td>{{ val.amount }}</td>
+            <td>{{ val.origworth }}</td>
+            <td>{{ val.currworth }}</td>
+            <td>{{ val.worthchng }}</td>
+
+            <td style="padding: 0;">
+                <form action="/investments/edit/{{ key }}">
+                    <button>Edit</button>
+                </form>
+            </td>
+            <td style="padding: 0;">
+                <form action="/investments/delete/{{ key }}">
+                    <button>Delete</button>
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+
+</table>
+
+<br>
+<table cellpadding="7px">
+    <tr>
+        <td><b>Current price:</b></td>
+        <td>{{ currentprice }}</td>
+    </tr>
+    <tr>
+        <td><b>Total amount:</b></td>
+        <td>{{ totalamount }}</td>
+    </tr>
+    <tr>
+        <td><b>Total worth:</b></td>
+        <td>{{ totalworth }}</td>
+    </tr>
+</table>
+
+</body>
+</html>
